@@ -6,7 +6,6 @@ import com.mjc.school.repository.domain.NewsModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class NewsArrayRepository implements BaseRepository<Long, NewsModel> {
     //
@@ -20,6 +19,11 @@ public class NewsArrayRepository implements BaseRepository<Long, NewsModel> {
     @Override
     public NewsModel create(NewsModel newsModel) {
         //
+        Long nextId = dataSource.getNewsModelList().stream()
+                .mapToLong(NewsModel::getId)
+                .max()
+                .orElse(0L) + 1;
+        newsModel.setId(nextId);
         dataSource.getNewsModelList().add(newsModel);
         return newsModel;
     }
@@ -31,11 +35,11 @@ public class NewsArrayRepository implements BaseRepository<Long, NewsModel> {
     }
 
     @Override
-    public Optional<NewsModel> readById(Long id) {
+    public NewsModel readById(Long id) {
         //
         return dataSource.getNewsModelList().stream()
                 .filter(news -> news.getId().equals(id))
-                .findFirst();
+                .findFirst().get();
     }
 
     @Override

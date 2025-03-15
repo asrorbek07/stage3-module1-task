@@ -50,8 +50,10 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     @Override
     public NewsRdo findById(Long id) {
         newsValidator.validateNewsId(id);
-        NewsModel newsModel = newsRepository.readById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id)));
+        NewsModel newsModel = newsRepository.readById(id);
+        if (newsModel==null){
+            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id));
+        }
         return newsMapper.toRdo(newsModel);
     }
 

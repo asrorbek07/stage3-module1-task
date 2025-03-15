@@ -6,7 +6,6 @@ import com.mjc.school.repository.domain.AuthorModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class AuthorArrayRepository implements BaseRepository<Long, AuthorModel> {
     //
@@ -20,6 +19,11 @@ public class AuthorArrayRepository implements BaseRepository<Long, AuthorModel> 
     @Override
     public AuthorModel create(AuthorModel authorModel) {
         //
+        Long nextId = dataSource.getAuthorModelList().stream()
+                .mapToLong(AuthorModel::getId)
+                .max()
+                .orElse(0L) + 1;
+        authorModel.setId(nextId);
         dataSource.getAuthorModelList().add(authorModel);
         return authorModel;
     }
@@ -31,11 +35,11 @@ public class AuthorArrayRepository implements BaseRepository<Long, AuthorModel> 
     }
 
     @Override
-    public Optional<AuthorModel> readById(Long id) {
+    public AuthorModel readById(Long id) {
         //
         return dataSource.getAuthorModelList().stream()
                 .filter(author -> author.getId().equals(id))
-                .findFirst();
+                .findFirst().get();
     }
 
     @Override
