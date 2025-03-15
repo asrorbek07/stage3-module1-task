@@ -2,13 +2,12 @@ package com.mjc.school.repository.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class News {
+public class NewsModel {
     //
     private Long id;
     private String title;

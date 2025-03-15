@@ -1,8 +1,8 @@
 package com.mjc.school.service.exception;
 
 public enum ExceptionMessage {
-    NEWS_ID_DOES_NOT_EXIST(Constants.ERROR_000001, "News with id %d does not exist."),
-    AUTHOR_ID_DOES_NOT_EXIST(Constants.ERROR_000002, "Author Id does not exist. Author Id is: %s"),
+    NEWS_ID_DOES_NOT_EXIST(Constants.ERROR_000001, "NewsModel with id %d does not exist."),
+    AUTHOR_ID_DOES_NOT_EXIST(Constants.ERROR_000002, "AuthorModel Id does not exist. AuthorModel Id is: %s"),
     VALIDATE_NEGATIVE_OR_NULL_NUMBER(Constants.ERROR_000003, "%s can not be null or less than 1. %s is: %s"),
     VALIDATE_NULL_STRING(Constants.ERROR_000004, "%s can not be null. %s is null"),
     VALIDATE_STRING_LENGTH(Constants.ERROR_000005, "%s can not be less than %d and more than %d symbols. %s is %s"),

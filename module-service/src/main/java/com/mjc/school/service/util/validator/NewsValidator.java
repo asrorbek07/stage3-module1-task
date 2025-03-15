@@ -5,10 +5,10 @@ import com.mjc.school.service.exception.NotValidException;
 import com.mjc.school.service.model.dto.NewsCdo;
 
 public class NewsValidator {
-    private static final String NEWS_ID = "News id";
-    private static final String NEWS_CONTENT = "News content";
-    private static final String AUTHOR_ID = "Author id";
-    private static final String NEWS_TITLE = "News title";
+    private static final String NEWS_ID = "NewsModel id";
+    private static final String NEWS_CONTENT = "NewsModel content";
+    private static final String AUTHOR_ID = "AuthorModel id";
+    private static final String NEWS_TITLE = "NewsModel title";
     private static final Integer NEWS_CONTENT_MIN_LENGTH = 5;
     private static final Integer NEWS_CONTENT_MAX_LENGTH = 255;
     private static final Integer NEWS_TITLE_MIN_LENGTH = 5;

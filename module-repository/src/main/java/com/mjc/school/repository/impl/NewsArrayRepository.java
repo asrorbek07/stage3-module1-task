@@ -2,64 +2,64 @@ package com.mjc.school.repository.impl;
 
 import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.dataSource.DataSource;
-import com.mjc.school.repository.domain.News;
+import com.mjc.school.repository.domain.NewsModel;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class NewsArrayRepository implements BaseRepository<Long, News> {
+public class NewsArrayRepository implements BaseRepository<Long, NewsModel> {
     //
-    private final List<News> newsList;
+    private final DataSource dataSource;
 
     public NewsArrayRepository() {
         //
-        this.newsList = new ArrayList<>(DataSource.getInstance().getNewsList());
+        this.dataSource = DataSource.getInstance();
     }
 
     @Override
-    public News create(News news) {
+    public NewsModel create(NewsModel newsModel) {
         //
-        newsList.add(news);
-        return news;
+        dataSource.getNewsModelList().add(newsModel);
+        return newsModel;
     }
 
     @Override
-    public List<News> getAll() {
+    public List<NewsModel> readAll() {
         //
-        return new ArrayList<>(newsList);
+        return new ArrayList<>(dataSource.getNewsModelList());
     }
 
     @Override
-    public Optional<News> getById(Long id) {
+    public Optional<NewsModel> readById(Long id) {
         //
-        return newsList.stream()
+        return dataSource.getNewsModelList().stream()
                 .filter(news -> news.getId().equals(id))
                 .findFirst();
     }
 
     @Override
-    public News update(Long id, News updatedNews) {
+    public NewsModel update(Long id, NewsModel updatedNewsModel) {
         //
-        for (int i = 0; i < newsList.size(); i++) {
-            if (newsList.get(i).getId().equals(id)) {
-                newsList.set(i, updatedNews);
-                return updatedNews;
+        for (int i = 0; i < dataSource.getNewsModelList().size(); i++) {
+            if (dataSource.getNewsModelList().get(i).getId().equals(id)) {
+                dataSource.getNewsModelList().set(i, updatedNewsModel);
+                return updatedNewsModel;
             }
         }
         return null;
     }
 
     @Override
-    public boolean delete(Long id) {
+    public Boolean delete(Long id) {
         //
-        return newsList.removeIf(news -> news.getId().equals(id));
+        return dataSource.getNewsModelList().removeIf(news -> news.getId().equals(id));
     }
 
     @Override
-    public boolean existsById(Long id) {
+    public Boolean existsById(Long id) {
         //
-        return newsList.stream()
+        return dataSource.getNewsModelList().stream()
                 .anyMatch(news -> news.getId().equals(id));
     }
 

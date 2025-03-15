@@ -1,12 +1,12 @@
 package com.mjc.school.service.Logic;
 
 import com.mjc.school.repository.BaseRepository;
+import com.mjc.school.repository.domain.NewsModel;
 import com.mjc.school.repository.factory.RepositoryFactory;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.service.exception.ExceptionMessage;
 import com.mjc.school.service.exception.ResourceNotFoundException;
-import com.mjc.school.repository.domain.Author;
-import com.mjc.school.repository.domain.News;
+import com.mjc.school.repository.domain.AuthorModel;
 import com.mjc.school.service.model.dto.NewsCdo;
 import com.mjc.school.service.model.dto.NewsRdo;
 import com.mjc.school.service.util.mapper.NewsMapper;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
-    private final BaseRepository<Long, News> newsRepository;
-    private final BaseRepository<Long, Author> authorRepository;
+    private final BaseRepository<Long, NewsModel> newsRepository;
+    private final BaseRepository<Long, AuthorModel> authorRepository;
     private final NewsMapper newsMapper;
     private final NewsValidator newsValidator;
 
@@ -33,16 +33,16 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     public NewsRdo register(NewsCdo newsCdo) {
         newsValidator.validateNewsDto(newsCdo);
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        News news = newsMapper.toDomain(newsCdo);
-        news.setCreatedDate(now);
-        news.setLastUpdatedDate(now);
-        News savedNews = newsRepository.create(news);
-        return newsMapper.toRdo(savedNews);
+        NewsModel newsModel = newsMapper.toDomain(newsCdo);
+        newsModel.setCreatedDate(now);
+        newsModel.setLastUpdatedDate(now);
+        NewsModel savedNewsModel = newsRepository.create(newsModel);
+        return newsMapper.toRdo(savedNewsModel);
     }
 
     @Override
     public List<NewsRdo> findAll() {
-        return newsRepository.getAll().stream()
+        return newsRepository.readAll().stream()
                 .map(newsMapper::toRdo)
                 .collect(Collectors.toList());
     }
@@ -50,9 +50,9 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     @Override
     public NewsRdo findById(Long id) {
         newsValidator.validateNewsId(id);
-        News news = newsRepository.getById(id)
+        NewsModel newsModel = newsRepository.readById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id)));
-        return newsMapper.toRdo(news);
+        return newsMapper.toRdo(newsModel);
     }
 
     @Override
@@ -63,11 +63,11 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
             throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id));
         }
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        News news = newsMapper.toDomain(newsCdo);
-        news.setId(id);
-        news.setLastUpdatedDate(now);
-        News updatedNews = newsRepository.update(news.getId(), news);
-        return newsMapper.toRdo(updatedNews);
+        NewsModel newsModel = newsMapper.toDomain(newsCdo);
+        newsModel.setId(id);
+        newsModel.setLastUpdatedDate(now);
+        NewsModel updatedNewsModel = newsRepository.update(newsModel.getId(), newsModel);
+        return newsMapper.toRdo(updatedNewsModel);
     }
 
     @Override

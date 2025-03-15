@@ -1,6 +1,6 @@
 package com.mjc.school.service.util.mapper;
 
-import com.mjc.school.repository.domain.News;
+import com.mjc.school.repository.domain.NewsModel;
 import com.mjc.school.service.model.dto.NewsCdo;
 import com.mjc.school.service.model.dto.NewsRdo;
 import org.mapstruct.Mapper;
@@ -12,7 +12,7 @@ public interface NewsMapper {
     NewsMapper INSTANCE = Mappers.getMapper(NewsMapper.class);
 
     @Mapping(source = "createdDate", target = "createDate")
-    NewsRdo toRdo(News news);
+    NewsRdo toRdo(NewsModel newsModel);
 
-    News toDomain(NewsCdo newsCdo);
+    NewsModel toDomain(NewsCdo newsCdo);
 }

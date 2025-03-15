@@ -1,7 +1,7 @@
 package com.mjc.school.repository.dataSource.data;
 
-import com.mjc.school.repository.domain.Author;
-import com.mjc.school.repository.domain.News;
+import com.mjc.school.repository.domain.AuthorModel;
+import com.mjc.school.repository.domain.NewsModel;
 import com.mjc.school.repository.FailedToLoadFileException;
 import lombok.Getter;
 
@@ -22,14 +22,14 @@ public class DataLoader {
     private static final int NEWS_COUNT = 20;
 
     @Getter
-    private final ArrayList<Author> authorList;
+    private final ArrayList<AuthorModel> authorModelList;
     @Getter
-    private final ArrayList<News> newsList;
+    private final ArrayList<NewsModel> newsModelList;
 
     private DataLoader() {
         //
-        this.authorList = generateAuthors();
-        this.newsList = generateNews();
+        this.authorModelList = generateAuthors();
+        this.newsModelList = generateNews();
     }
 
     public static synchronized DataLoader getInstance() {
@@ -37,30 +37,30 @@ public class DataLoader {
         return LazyDataLoader.DATA_LOADER_INSTANCE;
     }
 
-    private ArrayList<Author> generateAuthors() {
+    private ArrayList<AuthorModel> generateAuthors() {
         //
         List<String> authorLines = readResourceFile(AUTHOR_FILE);
-        ArrayList<Author> authors = new ArrayList<>();
+        ArrayList<AuthorModel> authorModels = new ArrayList<>();
         long id = 1;
         for (String name : authorLines) {
-            authors.add(Author.builder().id(id++).name(name.trim()).build());
+            authorModels.add(AuthorModel.builder().id(id++).name(name.trim()).build());
         }
-        return authors;
+        return authorModels;
     }
 
-    private ArrayList<News> generateNews() {
+    private ArrayList<NewsModel> generateNews() {
         //
         List<String> newsTitles = readResourceFile(NEWS_FILE);
         List<String> contentLines = readResourceFile(CONTENT_FILE);
-        ArrayList<News> newsList = new ArrayList<>();
+        ArrayList<NewsModel> newsModelList = new ArrayList<>();
         Random random = new Random();
 
         for (long id = 1; id <= NEWS_COUNT; id++) {
             String title = newsTitles.get(random.nextInt(newsTitles.size())).trim();
             String content = contentLines.get(random.nextInt(contentLines.size())).trim();
-            Long authorId = authorList.isEmpty() ? null : authorList.get(random.nextInt(authorList.size())).getId();
+            Long authorId = authorModelList.isEmpty() ? null : authorModelList.get(random.nextInt(authorModelList.size())).getId();
 
-            newsList.add(News.builder()
+            newsModelList.add(NewsModel.builder()
                     .id(id)
                     .title(title)
                     .content(content)
@@ -69,7 +69,7 @@ public class DataLoader {
                     .authorId(authorId)
                     .build());
         }
-        return newsList;
+        return newsModelList;
     }
 
     private List<String> readResourceFile(String fileName) {

@@ -1,8 +1,8 @@
 package com.mjc.school.repository.dataSource;
 
 import com.mjc.school.repository.dataSource.data.DataLoader;
-import com.mjc.school.repository.domain.Author;
-import com.mjc.school.repository.domain.News;
+import com.mjc.school.repository.domain.AuthorModel;
+import com.mjc.school.repository.domain.NewsModel;
 import lombok.Getter;
 
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
 @Getter
 public class DataSource {
     //
-    private List<News> newsList;
-    private List<Author> authorList;
+    private List<NewsModel> newsModelList;
+    private List<AuthorModel> authorModelList;
 
     private DataSource() {
         //
-        this.newsList = DataLoader.getInstance().getNewsList();
-        this.authorList = DataLoader.getInstance().getAuthorList();
+        this.newsModelList = DataLoader.getInstance().getNewsModelList();
+        this.authorModelList = DataLoader.getInstance().getAuthorModelList();
     }
 
     public static DataSource getInstance() {

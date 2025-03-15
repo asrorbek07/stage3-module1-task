@@ -6,9 +6,9 @@ import java.util.Optional;
 public interface BaseRepository<K,T> {
     //
     T create(T t);
-    List<T> getAll();
-    Optional<T> getById(K k);
+    List<T> readAll();
+    Optional<T> readById(K k);
     T update(K id, T t);
-    boolean delete(K k);
-    boolean existsById(K k);
+    Boolean delete(K k);
+    Boolean existsById(K k);
 }

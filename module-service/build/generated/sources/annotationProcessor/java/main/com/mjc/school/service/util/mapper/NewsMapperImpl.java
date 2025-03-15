@@ -1,6 +1,6 @@
 package com.mjc.school.service.util.mapper;
 
-import com.mjc.school.repository.domain.News;
+import com.mjc.school.repository.domain.NewsModel;
 import com.mjc.school.service.model.dto.NewsCdo;
 import com.mjc.school.service.model.dto.NewsRdo;
 import java.time.LocalDateTime;
@@ -14,8 +14,8 @@ import javax.annotation.processing.Generated;
 public class NewsMapperImpl implements NewsMapper {
 
     @Override
-    public NewsRdo toRdo(News news) {
-        if ( news == null ) {
+    public NewsRdo toRdo(NewsModel newsModel) {
+        if ( newsModel == null ) {
             return null;
         }
 
@@ -26,12 +26,12 @@ public class NewsMapperImpl implements NewsMapper {
         LocalDateTime lastUpdatedDate = null;
         Long authorId = null;
 
-        createDate = news.getCreatedDate();
-        id = news.getId();
-        title = news.getTitle();
-        content = news.getContent();
-        lastUpdatedDate = news.getLastUpdatedDate();
-        authorId = news.getAuthorId();
+        createDate = newsModel.getCreatedDate();
+        id = newsModel.getId();
+        title = newsModel.getTitle();
+        content = newsModel.getContent();
+        lastUpdatedDate = newsModel.getLastUpdatedDate();
+        authorId = newsModel.getAuthorId();
 
         NewsRdo newsRdo = new NewsRdo( id, title, content, createDate, lastUpdatedDate, authorId );
 
@@ -39,12 +39,12 @@ public class NewsMapperImpl implements NewsMapper {
     }
 
     @Override
-    public News toDomain(NewsCdo newsCdo) {
+    public NewsModel toDomain(NewsCdo newsCdo) {
         if ( newsCdo == null ) {
             return null;
         }
 
-        News.NewsBuilder news = News.builder();
+        NewsModel.NewsBuilder news = NewsModel.builder();
 
         news.title( newsCdo.getTitle() );
         news.content( newsCdo.getContent() );
