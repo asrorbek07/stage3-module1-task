@@ -73,7 +73,7 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     }
 
     @Override
-    public boolean delete(Long id) {
+    public Boolean delete(Long id) {
         newsValidator.validateNewsId(id);
         if (!newsRepository.existsById(id)) {
             throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id));
