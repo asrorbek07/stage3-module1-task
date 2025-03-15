@@ -18,26 +18,26 @@ public class NewsController {
 
     public NewsRdo register(NewsCdo newsCdo) {
         //
-        return newsService.register(newsCdo);
+        return newsService.create(newsCdo);
     }
 
     public List<NewsRdo> findAll() {
         //
-        return newsService.findAll();
+        return newsService.readAll();
     }
 
     public NewsRdo findById(Long id) {
         //
-        return newsService.findById(id);
+        return newsService.readById(id);
     }
 
     public NewsRdo modify(Long id, NewsCdo newsCdo) {
         //
-        return newsService.modify(id, newsCdo);
+        return newsService.update(id, newsCdo);
     }
 
     public Boolean remove(Long id) {
         //
-        return newsService.remove(id);
+        return newsService.delete(id);
     }
 }

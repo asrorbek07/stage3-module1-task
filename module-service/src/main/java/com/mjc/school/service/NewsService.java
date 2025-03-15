@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface NewsService<K,T, R> {
     //
-    R register(T t);
-    List<R> findAll();
-    R findById(K k);
-    R modify(K k, T t);
-    boolean remove(K k);
+    R create(T t);
+    List<R> readAll();
+    R readById(K k);
+    R update(K k, T t);
+    boolean delete(K k);
 }

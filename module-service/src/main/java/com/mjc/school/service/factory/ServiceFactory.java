@@ -1,6 +1,6 @@
 package com.mjc.school.service.factory;
 
-import com.mjc.school.service.Logic.NewsServiceLogic;
+import com.mjc.school.service.impl.NewsServiceLogic;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.service.model.dto.NewsCdo;
 import com.mjc.school.service.model.dto.NewsRdo;

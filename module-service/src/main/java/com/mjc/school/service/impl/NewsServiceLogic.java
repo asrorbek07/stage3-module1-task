@@ -1,4 +1,4 @@
-package com.mjc.school.service.Logic;
+package com.mjc.school.service.impl;
 
 import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.domain.NewsModel;
@@ -30,7 +30,7 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     }
 
     @Override
-    public NewsRdo register(NewsCdo newsCdo) {
+    public NewsRdo create(NewsCdo newsCdo) {
         newsValidator.validateNewsDto(newsCdo);
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         NewsModel newsModel = newsMapper.toDomain(newsCdo);
@@ -41,14 +41,14 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     }
 
     @Override
-    public List<NewsRdo> findAll() {
+    public List<NewsRdo> readAll() {
         return newsRepository.readAll().stream()
                 .map(newsMapper::toRdo)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public NewsRdo findById(Long id) {
+    public NewsRdo readById(Long id) {
         newsValidator.validateNewsId(id);
         NewsModel newsModel = newsRepository.readById(id);
         if (newsModel==null){
@@ -58,7 +58,7 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     }
 
     @Override
-    public NewsRdo modify(Long id, NewsCdo newsCdo) {
+    public NewsRdo update(Long id, NewsCdo newsCdo) {
         newsValidator.validateNewsId(id);
         newsValidator.validateNewsDto(newsCdo);
         if (!newsRepository.existsById(id)) {
@@ -73,7 +73,7 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     }
 
     @Override
-    public boolean remove(Long id) {
+    public boolean delete(Long id) {
         newsValidator.validateNewsId(id);
         if (!newsRepository.existsById(id)) {
             throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id));
