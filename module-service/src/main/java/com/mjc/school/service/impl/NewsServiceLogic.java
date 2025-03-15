@@ -59,7 +59,6 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
 
     @Override
     public NewsRdo update(NewsCdo newsCdo) {
-        newsValidator.validateNewsId(newsCdo.getId());
         newsValidator.validateNewsDto(newsCdo);
         NewsModel newsModel = newsRepository.readById(newsCdo.getId());
         if (!authorRepository.existsById(newsCdo.getAuthorId())) {
