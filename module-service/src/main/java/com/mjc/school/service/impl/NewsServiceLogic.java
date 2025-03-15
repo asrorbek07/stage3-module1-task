@@ -58,15 +58,20 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     }
 
     @Override
-    public NewsRdo update(Long id, NewsCdo newsCdo) {
-        newsValidator.validateNewsId(id);
+    public NewsRdo update(NewsCdo newsCdo) {
+        newsValidator.validateNewsId(newsCdo.getId());
         newsValidator.validateNewsDto(newsCdo);
-        if (!newsRepository.existsById(id)) {
-            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), id));
+        NewsModel newsModel = newsRepository.readById(newsCdo.getId());
+        if (!authorRepository.existsById(newsCdo.getAuthorId())) {
+            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.AUTHOR_ID_DOES_NOT_EXIST), newsCdo.getAuthorId()));
+        }
+        if (newsModel==null) {
+            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), newsCdo.getId()));
         }
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        NewsModel newsModel = newsMapper.toDomain(newsCdo);
-        newsModel.setId(id);
+        newsModel.setContent(newsCdo.getContent());
+        newsModel.setTitle(newsCdo.getTitle());
+        newsModel.setAuthorId(newsCdo.getAuthorId());
         newsModel.setLastUpdatedDate(now);
         NewsModel updatedNewsModel = newsRepository.update(newsModel);
         return newsMapper.toRdo(updatedNewsModel);

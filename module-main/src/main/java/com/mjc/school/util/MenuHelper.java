@@ -21,14 +21,14 @@ public class MenuHelper {
 
     public void getNews(NewsController newsController) {
         narrator.sayln(Operations.GET_ALL_NEWS.getOperation());
-        List<?> newsList = newsController.findAll();
+        List<?> newsList = newsController.readAll();
         newsList.forEach(news -> narrator.sayln(news.toString()));
     }
 
     public void getNewsById(NewsController newsController, ConsoleUtil consoleUtil) {
         narrator.sayln(Operations.GET_NEWS_BY_ID.getOperation());
         Long newsId = Long.parseLong(consoleUtil.getValueOf("Enter news id"));
-        narrator.sayln(newsController.findById(newsId).toString());
+        narrator.sayln(newsController.readById(newsId).toString());
     }
 
     public void createNews(NewsController newsController, ConsoleUtil consoleUtil) {
@@ -41,7 +41,7 @@ public class MenuHelper {
                 .content(content)
                 .authorId(authorId)
                 .build();
-        narrator.sayln(newsController.register(newsCdo).toString());
+        narrator.sayln(newsController.create(newsCdo).toString());
     }
 
     public void updateNews(NewsController newsController, ConsoleUtil consoleUtil) {
@@ -55,12 +55,12 @@ public class MenuHelper {
                 .content(content)
                 .authorId(authorId)
                 .build();
-        narrator.sayln(newsController.modify(newsId, newsCdo).toString());
+        narrator.sayln(newsController.update(newsCdo).toString());
     }
 
     public void deleteNews(NewsController newsController, ConsoleUtil consoleUtil) {
         narrator.sayln(Operations.REMOVE_NEWS_BY_ID.getOperation());
         Long newsId = Long.parseLong(consoleUtil.getValueOf("Enter news id"));
-        narrator.sayln(newsController.remove(newsId).toString());
+        narrator.sayln(newsController.delete(newsId).toString());
     }
 }

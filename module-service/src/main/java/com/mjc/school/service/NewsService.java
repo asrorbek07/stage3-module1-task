@@ -7,6 +7,6 @@ public interface NewsService<K,T, R> {
     R create(T t);
     List<R> readAll();
     R readById(K k);
-    R update(K k, T t);
+    R update(T t);
     Boolean delete(K k);
 }

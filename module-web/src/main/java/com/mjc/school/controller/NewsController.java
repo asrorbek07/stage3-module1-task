@@ -16,27 +16,27 @@ public class NewsController {
         this.newsService = ServiceFactory.getInstance().getNewsService();
     }
 
-    public NewsRdo register(NewsCdo newsCdo) {
+    public NewsRdo create(NewsCdo newsCdo) {
         //
         return newsService.create(newsCdo);
     }
 
-    public List<NewsRdo> findAll() {
+    public List<NewsRdo> readAll() {
         //
         return newsService.readAll();
     }
 
-    public NewsRdo findById(Long id) {
+    public NewsRdo readById(Long id) {
         //
         return newsService.readById(id);
     }
 
-    public NewsRdo modify(Long id, NewsCdo newsCdo) {
+    public NewsRdo update(NewsCdo newsCdo) {
         //
-        return newsService.update(id, newsCdo);
+        return newsService.update(newsCdo);
     }
 
-    public Boolean remove(Long id) {
+    public Boolean delete(Long id) {
         //
         return newsService.delete(id);
     }
