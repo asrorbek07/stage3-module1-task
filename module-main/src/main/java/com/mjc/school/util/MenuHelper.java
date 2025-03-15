@@ -51,6 +51,7 @@ public class MenuHelper {
         String content = consoleUtil.getValueOf("Enter news content");
         Long authorId = Long.parseLong(consoleUtil.getValueOf("Enter author id"));
         NewsCdo newsCdo = NewsCdo.builder()
+                .id(newsId)
                 .title(title)
                 .content(content)
                 .authorId(authorId)
