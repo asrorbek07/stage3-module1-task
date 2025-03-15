@@ -43,10 +43,10 @@ public class AuthorArrayRepository implements BaseRepository<Long, AuthorModel> 
     }
 
     @Override
-    public AuthorModel update(Long id, AuthorModel updatedAuthorModel) {
+    public AuthorModel update(AuthorModel updatedAuthorModel) {
         //
         for (int i = 0; i < dataSource.getAuthorModelList().size(); i++) {
-            if (dataSource.getAuthorModelList().get(i).getId().equals(id)) {
+            if (dataSource.getAuthorModelList().get(i).getId().equals(updatedAuthorModel.getId())) {
                 dataSource.getAuthorModelList().set(i, updatedAuthorModel);
                 return updatedAuthorModel;
             }

@@ -68,7 +68,7 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
         NewsModel newsModel = newsMapper.toDomain(newsCdo);
         newsModel.setId(id);
         newsModel.setLastUpdatedDate(now);
-        NewsModel updatedNewsModel = newsRepository.update(newsModel.getId(), newsModel);
+        NewsModel updatedNewsModel = newsRepository.update(newsModel);
         return newsMapper.toRdo(updatedNewsModel);
     }
 

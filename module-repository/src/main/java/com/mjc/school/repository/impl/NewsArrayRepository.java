@@ -43,10 +43,10 @@ public class NewsArrayRepository implements BaseRepository<Long, NewsModel> {
     }
 
     @Override
-    public NewsModel update(Long id, NewsModel updatedNewsModel) {
+    public NewsModel update(NewsModel updatedNewsModel) {
         //
         for (int i = 0; i < dataSource.getNewsModelList().size(); i++) {
-            if (dataSource.getNewsModelList().get(i).getId().equals(id)) {
+            if (dataSource.getNewsModelList().get(i).getId().equals(updatedNewsModel.getId())) {
                 dataSource.getNewsModelList().set(i, updatedNewsModel);
                 return updatedNewsModel;
             }
