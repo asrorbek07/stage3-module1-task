@@ -1,17 +1,18 @@
 package com.mjc.school.util;
 
-import com.mjc.school.controller.BaseController;
+import com.mjc.school.controller.impl.NewsController;
 import com.mjc.school.service.model.dto.NewsDto;
+
 import java.util.List;
 
 public class MenuHelper {
     private final Narrator narrator;
-    private final BaseController<NewsDto> newsController;
+    private final NewsController newsController;
     private final ConsoleUtil consoleUtil;
 
-    public MenuHelper(Narrator narrator, BaseController<NewsDto> baseController) {
+    public MenuHelper(Narrator narrator, NewsController newsController) {
         this.narrator = narrator;
-        this.newsController = baseController;
+        this.newsController = newsController;
         this.consoleUtil = new ConsoleUtil(narrator);
     }
 

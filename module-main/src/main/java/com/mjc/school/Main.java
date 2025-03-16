@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Narrator narrator = new Narrator(Main.class, TalkingAt.Left);
         ConsoleUtil consoleUtil = new ConsoleUtil(narrator);
-        MenuHelper helper = new MenuHelper(narrator,new NewsController());
+        MenuHelper helper = new MenuHelper(narrator, new NewsController());
 
         while (true) {
             try {
