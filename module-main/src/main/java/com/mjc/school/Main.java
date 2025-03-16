@@ -1,7 +1,10 @@
 package com.mjc.school;
 
 
-import com.mjc.school.controller.NewsController;
+import com.mjc.school.controller.BaseController;
+import com.mjc.school.controller.impl.NewsController;
+import com.mjc.school.service.model.dto.NewsCdo;
+import com.mjc.school.service.model.dto.NewsRdo;
 import com.mjc.school.util.ConsoleUtil;
 import com.mjc.school.util.MenuHelper;
 import com.mjc.school.util.Narrator;
@@ -11,8 +14,7 @@ public class Main {
     public static void main(String[] args) {
         Narrator narrator = new Narrator(Main.class, TalkingAt.Left);
         ConsoleUtil consoleUtil = new ConsoleUtil(narrator);
-        MenuHelper helper = new MenuHelper();
-        NewsController newsController = new NewsController();
+        MenuHelper helper = new MenuHelper(narrator,new NewsController());
 
         while (true) {
             try {
@@ -20,19 +22,19 @@ public class Main {
                 String command = consoleUtil.getValueOf("Enter your choice");
                 switch (command) {
                     case "1":
-                        helper.getNews(newsController);
+                        helper.getNews();
                         break;
                     case "2":
-                        helper.getNewsById(newsController, consoleUtil);
+                        helper.getNewsById();
                         break;
                     case "3":
-                        helper.createNews(newsController, consoleUtil);
+                        helper.createNews();
                         break;
                     case "4":
-                        helper.updateNews(newsController, consoleUtil);
+                        helper.updateNews();
                         break;
                     case "5":
-                        helper.deleteNews(newsController, consoleUtil);
+                        helper.deleteNews();
                         break;
                     case "0":
                         narrator.sayln("Exiting application...");
