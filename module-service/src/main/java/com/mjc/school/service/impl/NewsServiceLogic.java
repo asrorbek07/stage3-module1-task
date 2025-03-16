@@ -18,13 +18,11 @@ import java.util.stream.Collectors;
 
 public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     private final BaseRepository<Long, NewsModel> newsRepository;
-    private final BaseRepository<Long, AuthorModel> authorRepository;
     private final NewsMapper newsMapper;
     private final NewsValidator newsValidator;
 
     public NewsServiceLogic() {
         this.newsRepository = RepositoryFactory.getInstance().getNewsRepository();
-        this.authorRepository = RepositoryFactory.getInstance().getAuthorRepository();
         this.newsMapper = NewsMapper.INSTANCE;
         this.newsValidator = NewsValidator.getInstance();
     }
@@ -62,9 +60,6 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
         newsValidator.validateNewsId(newsCdo.getId());
         newsValidator.validateNewsDto(newsCdo);
         NewsModel newsModel = newsRepository.readById(newsCdo.getId());
-        if (!authorRepository.existsById(newsCdo.getAuthorId())) {
-            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.AUTHOR_ID_DOES_NOT_EXIST), newsCdo.getAuthorId()));
-        }
         if (newsModel==null) {
             throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), newsCdo.getId()));
         }
