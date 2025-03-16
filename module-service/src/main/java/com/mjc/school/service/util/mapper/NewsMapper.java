@@ -13,6 +13,5 @@ public interface NewsMapper {
 
     @Mapping(source = "createdDate", target = "createDate")
     NewsRdo toRdo(NewsModel newsModel);
-
-    NewsModel toDomain(NewsCdo newsCdo);
+    NewsModel toModel(NewsCdo newsCdo);
 }

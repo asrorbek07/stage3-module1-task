@@ -33,7 +33,7 @@ public class NewsServiceLogic implements NewsService<Long, NewsCdo, NewsRdo> {
     public NewsRdo create(NewsCdo newsCdo) {
         newsValidator.validateNewsDto(newsCdo);
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        NewsModel newsModel = newsMapper.toDomain(newsCdo);
+        NewsModel newsModel = newsMapper.toModel(newsCdo);
         newsModel.setCreatedDate(now);
         newsModel.setLastUpdatedDate(now);
         NewsModel savedNewsModel = newsRepository.create(newsModel);
