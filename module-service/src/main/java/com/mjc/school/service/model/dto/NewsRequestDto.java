@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class NewsCdo {
+public class NewsRequestDto {
     //
     private Long id;
     private String title;

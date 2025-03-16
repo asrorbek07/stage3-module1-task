@@ -1,10 +1,7 @@
 package com.mjc.school;
 
 
-import com.mjc.school.controller.BaseController;
 import com.mjc.school.controller.impl.NewsController;
-import com.mjc.school.service.model.dto.NewsCdo;
-import com.mjc.school.service.model.dto.NewsRdo;
 import com.mjc.school.util.ConsoleUtil;
 import com.mjc.school.util.MenuHelper;
 import com.mjc.school.util.Narrator;

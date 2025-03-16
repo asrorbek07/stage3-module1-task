@@ -1,8 +1,9 @@
 package com.mjc.school.service.util.mapper;
 
 import com.mjc.school.repository.domain.NewsModel;
-import com.mjc.school.service.model.dto.NewsCdo;
-import com.mjc.school.service.model.dto.NewsRdo;
+import com.mjc.school.service.model.dto.NewsRequestDto;
+import com.mjc.school.service.model.dto.NewsResponseDto;
+
 import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 
@@ -14,7 +15,7 @@ import javax.annotation.processing.Generated;
 public class NewsMapperImpl implements NewsMapper {
 
     @Override
-    public NewsRdo toRdo(NewsModel newsModel) {
+    public NewsResponseDto toRdo(NewsModel newsModel) {
         if ( newsModel == null ) {
             return null;
         }
@@ -33,23 +34,23 @@ public class NewsMapperImpl implements NewsMapper {
         lastUpdatedDate = newsModel.getLastUpdatedDate();
         authorId = newsModel.getAuthorId();
 
-        NewsRdo newsRdo = new NewsRdo( id, title, content, createDate, lastUpdatedDate, authorId );
+        NewsResponseDto newsResponseDto = new NewsResponseDto( id, title, content, createDate, lastUpdatedDate, authorId );
 
-        return newsRdo;
+        return newsResponseDto;
     }
 
     @Override
-    public NewsModel toModel(NewsCdo newsCdo) {
-        if ( newsCdo == null ) {
+    public NewsModel toModel(NewsRequestDto newsRequestDto) {
+        if ( newsRequestDto == null ) {
             return null;
         }
 
         NewsModel.NewsModelBuilder newsModel = NewsModel.builder();
 
-        newsModel.id( newsCdo.getId() );
-        newsModel.title( newsCdo.getTitle() );
-        newsModel.content( newsCdo.getContent() );
-        newsModel.authorId( newsCdo.getAuthorId() );
+        newsModel.id( newsRequestDto.getId() );
+        newsModel.title( newsRequestDto.getTitle() );
+        newsModel.content( newsRequestDto.getContent() );
+        newsModel.authorId( newsRequestDto.getAuthorId() );
 
         return newsModel.build();
     }
