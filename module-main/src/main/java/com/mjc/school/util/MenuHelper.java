@@ -11,7 +11,7 @@ public class MenuHelper {
     private final BaseController<Long, NewsCdo, NewsRdo> newsController;
     private final ConsoleUtil consoleUtil;
 
-    public MenuHelper(Narrator narrator, BaseController baseController) {
+    public MenuHelper(Narrator narrator, BaseController<Long, NewsCdo, NewsRdo> baseController) {
         this.narrator = narrator;
         this.newsController = baseController;
         this.consoleUtil = new ConsoleUtil(narrator);
