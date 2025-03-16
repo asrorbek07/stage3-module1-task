@@ -3,12 +3,11 @@ package com.mjc.school.service.util.mapper;
 import com.mjc.school.repository.domain.NewsModel;
 import com.mjc.school.service.model.dto.NewsRequestDto;
 import com.mjc.school.service.model.dto.NewsResponseDto;
-import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-16T14:40:42+0500",
+    date = "2025-03-16T14:48:13+0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.14 (Amazon.com Inc.)"
 )
 public class NewsMapperImpl implements NewsMapper {
@@ -19,23 +18,16 @@ public class NewsMapperImpl implements NewsMapper {
             return null;
         }
 
-        LocalDateTime createDate = null;
-        Long id = null;
-        String title = null;
-        String content = null;
-        LocalDateTime lastUpdatedDate = null;
-        Long authorId = null;
+        NewsResponseDto.NewsResponseDtoBuilder newsResponseDto = NewsResponseDto.builder();
 
-        createDate = newsModel.getCreatedDate();
-        id = newsModel.getId();
-        title = newsModel.getTitle();
-        content = newsModel.getContent();
-        lastUpdatedDate = newsModel.getLastUpdatedDate();
-        authorId = newsModel.getAuthorId();
+        newsResponseDto.createDate( newsModel.getCreatedDate() );
+        newsResponseDto.id( newsModel.getId() );
+        newsResponseDto.title( newsModel.getTitle() );
+        newsResponseDto.content( newsModel.getContent() );
+        newsResponseDto.lastUpdatedDate( newsModel.getLastUpdatedDate() );
+        newsResponseDto.authorId( newsModel.getAuthorId() );
 
-        NewsResponseDto newsResponseDto = new NewsResponseDto( id, title, content, createDate, lastUpdatedDate, authorId );
-
-        return newsResponseDto;
+        return newsResponseDto.build();
     }
 
     @Override

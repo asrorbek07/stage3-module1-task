@@ -1,6 +1,17 @@
 package com.mjc.school.service.model.dto;
 
-import java.time.LocalDateTime;
+import lombok.Builder;
+import lombok.Data;
 
-public record NewsResponseDto(Long id, String title, String content, LocalDateTime createDate, LocalDateTime lastUpdatedDate, Long authorId) {
+import java.time.LocalDateTime;
+@Data
+@Builder
+public class NewsResponseDto{
+    //
+    private Long id;
+    private String title;
+    private String content;
+    private LocalDateTime createDate;
+    private LocalDateTime lastUpdatedDate;
+    private Long authorId;
 }
