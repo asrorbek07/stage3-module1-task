@@ -1,47 +1,47 @@
 package com.mjc.school.service.util.mapper;
 
 import com.mjc.school.repository.domain.NewsModel;
-import com.mjc.school.service.model.dto.NewsDtoRequest;
-import com.mjc.school.service.model.dto.NewsDtoResponse;
+import com.mjc.school.service.model.dto.NewsDto;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-16T14:53:25+0500",
+    date = "2025-03-16T20:43:21+0500",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.14 (Amazon.com Inc.)"
 )
 public class NewsMapperImpl implements NewsMapper {
 
     @Override
-    public NewsDtoResponse toRdo(NewsModel newsModel) {
+    public NewsDto toRdo(NewsModel newsModel) {
         if ( newsModel == null ) {
             return null;
         }
 
-        NewsDtoResponse.NewsDtoResponseBuilder newsDtoResponse = NewsDtoResponse.builder();
+        NewsDto.NewsDtoBuilder newsDto = NewsDto.builder();
 
-        newsDtoResponse.createDate( newsModel.getCreatedDate() );
-        newsDtoResponse.id( newsModel.getId() );
-        newsDtoResponse.title( newsModel.getTitle() );
-        newsDtoResponse.content( newsModel.getContent() );
-        newsDtoResponse.lastUpdatedDate( newsModel.getLastUpdatedDate() );
-        newsDtoResponse.authorId( newsModel.getAuthorId() );
+        newsDto.createDate( newsModel.getCreatedDate() );
+        newsDto.id( newsModel.getId() );
+        newsDto.title( newsModel.getTitle() );
+        newsDto.content( newsModel.getContent() );
+        newsDto.lastUpdatedDate( newsModel.getLastUpdatedDate() );
+        newsDto.authorId( newsModel.getAuthorId() );
 
-        return newsDtoResponse.build();
+        return newsDto.build();
     }
 
     @Override
-    public NewsModel toModel(NewsDtoRequest newsDtoRequest) {
-        if ( newsDtoRequest == null ) {
+    public NewsModel toModel(NewsDto newsDto) {
+        if ( newsDto == null ) {
             return null;
         }
 
         NewsModel.NewsModelBuilder newsModel = NewsModel.builder();
 
-        newsModel.id( newsDtoRequest.getId() );
-        newsModel.title( newsDtoRequest.getTitle() );
-        newsModel.content( newsDtoRequest.getContent() );
-        newsModel.authorId( newsDtoRequest.getAuthorId() );
+        newsModel.id( newsDto.getId() );
+        newsModel.title( newsDto.getTitle() );
+        newsModel.content( newsDto.getContent() );
+        newsModel.lastUpdatedDate( newsDto.getLastUpdatedDate() );
+        newsModel.authorId( newsDto.getAuthorId() );
 
         return newsModel.build();
     }

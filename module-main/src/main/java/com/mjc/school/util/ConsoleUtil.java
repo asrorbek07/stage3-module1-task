@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class ConsoleUtil {
 	//
-	private Scanner scanner;
-	private Narrator narrator; 
+	private final Scanner scanner;
+	private final Narrator narrator;
 
 	public ConsoleUtil(Object target) {
 		// 

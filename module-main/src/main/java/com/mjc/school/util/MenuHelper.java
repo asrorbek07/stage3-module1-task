@@ -1,24 +1,22 @@
 package com.mjc.school.util;
 
 import com.mjc.school.controller.BaseController;
-import com.mjc.school.service.model.dto.NewsDtoRequest;
-import com.mjc.school.service.model.dto.NewsDtoResponse;
-
+import com.mjc.school.service.model.dto.NewsDto;
 import java.util.List;
 
 public class MenuHelper {
     private final Narrator narrator;
-    private final BaseController<Long, NewsDtoRequest, NewsDtoResponse> newsController;
+    private final BaseController<NewsDto> newsController;
     private final ConsoleUtil consoleUtil;
 
-    public MenuHelper(Narrator narrator, BaseController<Long, NewsDtoRequest, NewsDtoResponse> baseController) {
+    public MenuHelper(Narrator narrator, BaseController<NewsDto> baseController) {
         this.narrator = narrator;
         this.newsController = baseController;
         this.consoleUtil = new ConsoleUtil(narrator);
     }
 
     public void printMainMenu() {
-        narrator.sayln("Enter the number of operation:");
+        narrator.sayln(Constant.NUMBER_OPERATION_ENTER);
         for (Operations operation : Operations.values()) {
             narrator.sayln(operation.getOperationWithNumber());
         }
@@ -32,41 +30,41 @@ public class MenuHelper {
 
     public void getNewsById() {
         narrator.sayln(Operations.GET_NEWS_BY_ID.getOperation());
-        Long newsId = Long.parseLong(consoleUtil.getValueOf("Enter news id"));
+        Long newsId = Long.parseLong(consoleUtil.getValueOf(Constant.NEWS_ID_ENTER));
         narrator.sayln(newsController.readById(newsId).toString());
     }
 
     public void createNews() {
         narrator.sayln(Operations.CREATE_NEWS.getOperation());
-        String title = consoleUtil.getValueOf("Enter news title");
-        String content = consoleUtil.getValueOf("Enter news content");
-        Long authorId = Long.parseLong(consoleUtil.getValueOf("Enter author id"));
-        NewsDtoRequest newsDtoRequest = NewsDtoRequest.builder()
+        String title = consoleUtil.getValueOf(Constant.NEWS_TITLE_ENTER);
+        String content = consoleUtil.getValueOf(Constant.NEWS_CONTENT_ENTER);
+        Long authorId = Long.parseLong(consoleUtil.getValueOf(Constant.AUTHOR_ID_ENTER));
+        NewsDto newsDto = NewsDto.builder()
                 .title(title)
                 .content(content)
                 .authorId(authorId)
                 .build();
-        narrator.sayln(newsController.create(newsDtoRequest).toString());
+        narrator.sayln(newsController.create(newsDto).toString());
     }
 
     public void updateNews() {
         narrator.sayln(Operations.UPDATE_NEWS.getOperation());
-        Long newsId = Long.parseLong(consoleUtil.getValueOf("Enter news id"));
-        String title = consoleUtil.getValueOf("Enter news title");
-        String content = consoleUtil.getValueOf("Enter news content");
-        Long authorId = Long.parseLong(consoleUtil.getValueOf("Enter author id"));
-        NewsDtoRequest newsDtoRequest = NewsDtoRequest.builder()
+        Long newsId = Long.parseLong(consoleUtil.getValueOf(Constant.NEWS_ID_ENTER));
+        String title = consoleUtil.getValueOf(Constant.NEWS_TITLE_ENTER);
+        String content = consoleUtil.getValueOf(Constant.NEWS_CONTENT_ENTER);
+        Long authorId = Long.parseLong(consoleUtil.getValueOf(Constant.AUTHOR_ID_ENTER));
+        NewsDto newsDto = NewsDto.builder()
                 .id(newsId)
                 .title(title)
                 .content(content)
                 .authorId(authorId)
                 .build();
-        narrator.sayln(newsController.update(newsDtoRequest).toString());
+        narrator.sayln(newsController.update(newsDto).toString());
     }
 
     public void deleteNews() {
         narrator.sayln(Operations.REMOVE_NEWS_BY_ID.getOperation());
-        Long newsId = Long.parseLong(consoleUtil.getValueOf("Enter news id"));
+        Long newsId = Long.parseLong(consoleUtil.getValueOf(Constant.NEWS_ID_ENTER));
         narrator.sayln(newsController.delete(newsId).toString());
     }
 }

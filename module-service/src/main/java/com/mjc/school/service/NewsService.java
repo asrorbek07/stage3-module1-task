@@ -2,11 +2,11 @@ package com.mjc.school.service;
 
 import java.util.List;
 
-public interface NewsService<K,T, R> {
+public interface NewsService<T> {
     //
-    R create(T t);
-    List<R> readAll();
-    R readById(K k);
-    R update(T t);
-    Boolean delete(K k);
+    T create(T t);
+    List<T> readAll();
+    T readById(Long id);
+    T update(T t);
+    Boolean delete(Long id);
 }
