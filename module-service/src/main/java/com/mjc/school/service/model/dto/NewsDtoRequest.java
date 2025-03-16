@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class NewsRequestDto {
+public class NewsDtoRequest {
     //
     private Long id;
     private String title;

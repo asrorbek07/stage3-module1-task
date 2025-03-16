@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 @Data
 @Builder
-public class NewsResponseDto{
+public class NewsDtoResponse {
     //
     private Long id;
     private String title;

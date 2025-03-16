@@ -6,8 +6,8 @@ import com.mjc.school.repository.factory.RepositoryFactory;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.service.exception.ExceptionMessage;
 import com.mjc.school.service.exception.ResourceNotFoundException;
-import com.mjc.school.service.model.dto.NewsRequestDto;
-import com.mjc.school.service.model.dto.NewsResponseDto;
+import com.mjc.school.service.model.dto.NewsDtoRequest;
+import com.mjc.school.service.model.dto.NewsDtoResponse;
 import com.mjc.school.service.util.mapper.NewsMapper;
 import com.mjc.school.service.util.validator.NewsValidator;
 import java.time.LocalDateTime;
@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NewsServiceLogic implements NewsService<Long, NewsRequestDto, NewsResponseDto> {
+public class NewsServiceLogic implements NewsService<Long, NewsDtoRequest, NewsDtoResponse> {
     private final BaseRepository<Long, NewsModel> newsRepository;
     private final NewsMapper newsMapper;
     private final NewsValidator newsValidator;
@@ -27,10 +27,10 @@ public class NewsServiceLogic implements NewsService<Long, NewsRequestDto, NewsR
     }
 
     @Override
-    public NewsResponseDto create(NewsRequestDto newsRequestDto) {
-        newsValidator.validateNewsDto(newsRequestDto);
+    public NewsDtoResponse create(NewsDtoRequest newsDtoRequest) {
+        newsValidator.validateNewsDto(newsDtoRequest);
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        NewsModel newsModel = newsMapper.toModel(newsRequestDto);
+        NewsModel newsModel = newsMapper.toModel(newsDtoRequest);
         newsModel.setCreatedDate(now);
         newsModel.setLastUpdatedDate(now);
         NewsModel savedNewsModel = newsRepository.create(newsModel);
@@ -38,14 +38,14 @@ public class NewsServiceLogic implements NewsService<Long, NewsRequestDto, NewsR
     }
 
     @Override
-    public List<NewsResponseDto> readAll() {
+    public List<NewsDtoResponse> readAll() {
         return newsRepository.readAll().stream()
                 .map(newsMapper::toRdo)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public NewsResponseDto readById(Long id) {
+    public NewsDtoResponse readById(Long id) {
         newsValidator.validateNewsId(id);
         NewsModel newsModel = newsRepository.readById(id);
         if (newsModel==null){
@@ -55,17 +55,17 @@ public class NewsServiceLogic implements NewsService<Long, NewsRequestDto, NewsR
     }
 
     @Override
-    public NewsResponseDto update(NewsRequestDto newsRequestDto) {
-        newsValidator.validateNewsId(newsRequestDto.getId());
-        newsValidator.validateNewsDto(newsRequestDto);
-        NewsModel newsModel = newsRepository.readById(newsRequestDto.getId());
+    public NewsDtoResponse update(NewsDtoRequest newsDtoRequest) {
+        newsValidator.validateNewsId(newsDtoRequest.getId());
+        newsValidator.validateNewsDto(newsDtoRequest);
+        NewsModel newsModel = newsRepository.readById(newsDtoRequest.getId());
         if (newsModel==null) {
-            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), newsRequestDto.getId()));
+            throw new ResourceNotFoundException(String.format(String.valueOf(ExceptionMessage.NEWS_ID_DOES_NOT_EXIST), newsDtoRequest.getId()));
         }
         LocalDateTime now = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        newsModel.setContent(newsRequestDto.getContent());
-        newsModel.setTitle(newsRequestDto.getTitle());
-        newsModel.setAuthorId(newsRequestDto.getAuthorId());
+        newsModel.setContent(newsDtoRequest.getContent());
+        newsModel.setTitle(newsDtoRequest.getTitle());
+        newsModel.setAuthorId(newsDtoRequest.getAuthorId());
         newsModel.setLastUpdatedDate(now);
         NewsModel updatedNewsModel = newsRepository.update(newsModel);
         return newsMapper.toRdo(updatedNewsModel);

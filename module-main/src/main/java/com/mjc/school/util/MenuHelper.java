@@ -1,17 +1,17 @@
 package com.mjc.school.util;
 
 import com.mjc.school.controller.BaseController;
-import com.mjc.school.service.model.dto.NewsRequestDto;
-import com.mjc.school.service.model.dto.NewsResponseDto;
+import com.mjc.school.service.model.dto.NewsDtoRequest;
+import com.mjc.school.service.model.dto.NewsDtoResponse;
 
 import java.util.List;
 
 public class MenuHelper {
     private final Narrator narrator;
-    private final BaseController<Long, NewsRequestDto, NewsResponseDto> newsController;
+    private final BaseController<Long, NewsDtoRequest, NewsDtoResponse> newsController;
     private final ConsoleUtil consoleUtil;
 
-    public MenuHelper(Narrator narrator, BaseController<Long, NewsRequestDto, NewsResponseDto> baseController) {
+    public MenuHelper(Narrator narrator, BaseController<Long, NewsDtoRequest, NewsDtoResponse> baseController) {
         this.narrator = narrator;
         this.newsController = baseController;
         this.consoleUtil = new ConsoleUtil(narrator);
@@ -41,12 +41,12 @@ public class MenuHelper {
         String title = consoleUtil.getValueOf("Enter news title");
         String content = consoleUtil.getValueOf("Enter news content");
         Long authorId = Long.parseLong(consoleUtil.getValueOf("Enter author id"));
-        NewsRequestDto newsRequestDto = NewsRequestDto.builder()
+        NewsDtoRequest newsDtoRequest = NewsDtoRequest.builder()
                 .title(title)
                 .content(content)
                 .authorId(authorId)
                 .build();
-        narrator.sayln(newsController.create(newsRequestDto).toString());
+        narrator.sayln(newsController.create(newsDtoRequest).toString());
     }
 
     public void updateNews() {
@@ -55,13 +55,13 @@ public class MenuHelper {
         String title = consoleUtil.getValueOf("Enter news title");
         String content = consoleUtil.getValueOf("Enter news content");
         Long authorId = Long.parseLong(consoleUtil.getValueOf("Enter author id"));
-        NewsRequestDto newsRequestDto = NewsRequestDto.builder()
+        NewsDtoRequest newsDtoRequest = NewsDtoRequest.builder()
                 .id(newsId)
                 .title(title)
                 .content(content)
                 .authorId(authorId)
                 .build();
-        narrator.sayln(newsController.update(newsRequestDto).toString());
+        narrator.sayln(newsController.update(newsDtoRequest).toString());
     }
 
     public void deleteNews() {

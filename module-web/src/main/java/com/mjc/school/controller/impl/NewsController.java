@@ -3,36 +3,36 @@ package com.mjc.school.controller.impl;
 import com.mjc.school.controller.BaseController;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.service.factory.ServiceFactory;
-import com.mjc.school.service.model.dto.NewsRequestDto;
-import com.mjc.school.service.model.dto.NewsResponseDto;
+import com.mjc.school.service.model.dto.NewsDtoRequest;
+import com.mjc.school.service.model.dto.NewsDtoResponse;
 
 import java.util.List;
 
-public class NewsController implements BaseController<Long, NewsRequestDto, NewsResponseDto> {
-    private final NewsService<Long, NewsRequestDto, NewsResponseDto> newsService;
+public class NewsController implements BaseController<Long, NewsDtoRequest, NewsDtoResponse> {
+    private final NewsService<Long, NewsDtoRequest, NewsDtoResponse> newsService;
 
     public NewsController() {
         this.newsService = ServiceFactory.getInstance().getNewsService();
     }
 
     @Override
-    public NewsResponseDto create(NewsRequestDto newsRequestDto) {
-        return newsService.create(newsRequestDto);
+    public NewsDtoResponse create(NewsDtoRequest newsDtoRequest) {
+        return newsService.create(newsDtoRequest);
     }
 
     @Override
-    public List<NewsResponseDto> readAll() {
+    public List<NewsDtoResponse> readAll() {
         return newsService.readAll();
     }
 
     @Override
-    public NewsResponseDto readById(Long id) {
+    public NewsDtoResponse readById(Long id) {
         return newsService.readById(id);
     }
 
     @Override
-    public NewsResponseDto update(NewsRequestDto newsRequestDto) {
-        return newsService.update(newsRequestDto);
+    public NewsDtoResponse update(NewsDtoRequest newsDtoRequest) {
+        return newsService.update(newsDtoRequest);
     }
 
     @Override

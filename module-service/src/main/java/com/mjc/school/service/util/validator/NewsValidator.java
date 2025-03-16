@@ -2,7 +2,7 @@ package com.mjc.school.service.util.validator;
 
 import com.mjc.school.service.exception.ExceptionMessage;
 import com.mjc.school.service.exception.NotValidException;
-import com.mjc.school.service.model.dto.NewsRequestDto;
+import com.mjc.school.service.model.dto.NewsDtoRequest;
 
 public class NewsValidator {
     private static final String NEWS_ID = "NewsModel id";
@@ -30,10 +30,10 @@ public class NewsValidator {
         this.validateNumber(newsId, NEWS_ID);
     }
 
-    public void validateNewsDto(NewsRequestDto newsRequestDto) {
-        this.validateString(newsRequestDto.getTitle(), NEWS_TITLE, NEWS_TITLE_MIN_LENGTH, NEWS_TITLE_MAX_LENGTH);
-        this.validateString(newsRequestDto.getContent(), NEWS_CONTENT, NEWS_CONTENT_MIN_LENGTH, NEWS_CONTENT_MAX_LENGTH);
-        this.validateNumber(newsRequestDto.getAuthorId(), AUTHOR_ID);
+    public void validateNewsDto(NewsDtoRequest newsDtoRequest) {
+        this.validateString(newsDtoRequest.getTitle(), NEWS_TITLE, NEWS_TITLE_MIN_LENGTH, NEWS_TITLE_MAX_LENGTH);
+        this.validateString(newsDtoRequest.getContent(), NEWS_CONTENT, NEWS_CONTENT_MIN_LENGTH, NEWS_CONTENT_MAX_LENGTH);
+        this.validateNumber(newsDtoRequest.getAuthorId(), AUTHOR_ID);
     }
 
     private void validateNumber(Long id, String parameter) {

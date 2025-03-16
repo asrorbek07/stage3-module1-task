@@ -2,12 +2,12 @@ package com.mjc.school.service.factory;
 
 import com.mjc.school.service.impl.NewsServiceLogic;
 import com.mjc.school.service.NewsService;
-import com.mjc.school.service.model.dto.NewsRequestDto;
-import com.mjc.school.service.model.dto.NewsResponseDto;
+import com.mjc.school.service.model.dto.NewsDtoRequest;
+import com.mjc.school.service.model.dto.NewsDtoResponse;
 
 public class ServiceFactory {
     //
-    private final NewsService<Long, NewsRequestDto, NewsResponseDto> newsService;
+    private final NewsService<Long, NewsDtoRequest, NewsDtoResponse> newsService;
 
     public ServiceFactory() {
         this.newsService = new NewsServiceLogic();
@@ -19,7 +19,7 @@ public class ServiceFactory {
     }
 
 
-    public NewsService<Long, NewsRequestDto, NewsResponseDto> getNewsService() {
+    public NewsService<Long, NewsDtoRequest, NewsDtoResponse> getNewsService() {
         //
         return this.newsService;
     }
