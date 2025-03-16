@@ -11,7 +11,7 @@ public class NewsDto {
     private Long id;
     private String title;
     private String content;
-    private LocalDateTime createDate;
+    private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedDate;
     private Long authorId;
 }
